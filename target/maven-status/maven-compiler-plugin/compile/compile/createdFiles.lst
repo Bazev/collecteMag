@@ -1,0 +1,7 @@
+com\bazin\test\models\Client.class
+com\bazin\test\chunk\CollecteMagWriter.class
+com\bazin\test\TestApplication.class
+com\bazin\test\models\Compte.class
+com\bazin\test\models\CsvFile.class
+com\bazin\test\chunk\CollecteMagReader.class
+com\bazin\test\config\CollecteMagJobConfiguration.class
