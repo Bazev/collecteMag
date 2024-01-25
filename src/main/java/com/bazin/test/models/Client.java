@@ -1,85 +1,37 @@
 package com.bazin.test.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Size;
+import lombok.Builder;
+import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Locale;
 
+@Data
+@Builder
 public class Client {
 
+    @Size(min = 10, max = 10, message = "L'identifiant doit être sur 15 caractères")
     private String identifiant;
     private String nom;
     private String prenom;
 
-    @Email(message = "Email should be valid")
+    @Email(message = "L'email doit être valide")
     private String adresseMail;
 
-    @Past
-    private LocalDate dateNaissance;
+    @JsonIgnore
+    @Past(message = "La date de naissance doit être antérieur à la date du jour")
+    private LocalDate dateNaissanceDate;
 
-    public Client() {
-    }
+    private String dateNaissance;
 
-    public Client(String identifiant, String nom, String prenom, String adresseMail, LocalDate dateNaissance) {
-        this.identifiant = identifiant;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.adresseMail = adresseMail;
-        this.dateNaissance = dateNaissance;
-    }
-
-    public String getIdentifiant() {
-        return identifiant;
-    }
-
-    public void setIdentifiant(String identifiant) {
-        this.identifiant = identifiant;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getPrenom() {
-        return prenom;
-    }
-
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
-
-    public String getAdresseMail() {
-        return adresseMail;
-    }
-
-    public void setAdresseMail(String adresseMail) {
-        this.adresseMail = adresseMail;
-    }
-
-    public LocalDate getDateNaissance() {
-        return dateNaissance;
-    }
-
-    public void setDateNaissance(LocalDate dateNaissance) {
-        this.dateNaissance = dateNaissance;
-    }
+    @JsonIgnore
+    private String messageError;
 
 
-    @Override
-    public String toString() {
-        return "Client{" +
-                "identifiant='" + identifiant + '\'' +
-                ", nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                ", adresseMail='" + adresseMail + '\'' +
-                ", dateNaissance=" + dateNaissance +
-                '}';
-    }
+
+
 }

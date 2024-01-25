@@ -15,7 +15,7 @@ import java.util.List;
 
 public class CollecteMagWriter implements ItemWriter<CsvFile> {
 
-    private static final String OUTPUT = "C:\\collecteMag\\input\\";
+    private static final String OUTPUT = "/collecteMag/output/";
 
     @Override
     public void write(Chunk<? extends CsvFile> csvFiles) throws Exception {
@@ -30,37 +30,26 @@ public class CollecteMagWriter implements ItemWriter<CsvFile> {
         }
         writeClients(clientList);
         writeComptes(compteList);
-
     }
 
 
 
-    private void writeClients(List<Client> clients) {
-        try {
-
-            FileWriter writer = new FileWriter(OUTPUT);
-            JsonObjectMarshaller<List<Client>> jsonObjectMarshaller = new JacksonJsonObjectMarshaller<>();
-            String jsonContent = jsonObjectMarshaller.marshal(clients);
+    private void writeClients(List<Client> clients) throws IOException {
+        JsonObjectMarshaller<List<Client>> jsonObjectMarshaller = new JacksonJsonObjectMarshaller<>();
+        String jsonContent = jsonObjectMarshaller.marshal(clients);
+        try (FileWriter writer = new FileWriter(OUTPUT+"clients.json")) {
             writer.write(jsonContent);
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
-    private void writeComptes(List<Compte> comptes) {
-        try {
-
-            FileWriter fileWriter = new FileWriter(OUTPUT);
-            JsonObjectMarshaller<List<Compte>> jsonObjectMarshaller = new JacksonJsonObjectMarshaller<>();
-            String jsonContent = jsonObjectMarshaller.marshal(comptes);
+    private void writeComptes(List<Compte> comptes) throws IOException {
+        JsonObjectMarshaller<List<Compte>> jsonObjectMarshaller = new JacksonJsonObjectMarshaller<>();
+        String jsonContent = jsonObjectMarshaller.marshal(comptes);
+        try (FileWriter fileWriter = new FileWriter(OUTPUT+"compte.json")){
             fileWriter.write(jsonContent);
-
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
+
 
 
 }
