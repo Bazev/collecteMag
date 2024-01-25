@@ -1,51 +1,22 @@
 package com.bazin.test.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.validation.constraints.Size;
+import lombok.Builder;
+import lombok.Data;
+
+@Data
+@Builder
 public class Compte {
 
+    @Size(min = 15, max = 15, message = "L'identifiant doit être sur 15 caractères")
     private String identifiant;
+    @Size(min = 10, max = 10, message = "L'identifiant client doit être sur 15 caractères")
     private String identifiantClient;
     private String solde;
     private String decouvertAutorise;
 
-    public Compte() {
-    }
+    @JsonIgnore
+    private String messageError;
 
-    public Compte(String identifiant, String identifiantClient, String solde, String decouvertAutorise) {
-        this.identifiant = identifiant;
-        this.identifiantClient = identifiantClient;
-        this.solde = solde;
-        this.decouvertAutorise = decouvertAutorise;
-    }
-
-    public String getIdentifiant() {
-        return identifiant;
-    }
-
-    public void setIdentifiant(String identifiant) {
-        this.identifiant = identifiant;
-    }
-
-    public String getIdentifiantClient() {
-        return identifiantClient;
-    }
-
-    public void setIdentifiantClient(String identifiantClient) {
-        this.identifiantClient = identifiantClient;
-    }
-
-    public String getSolde() {
-        return solde;
-    }
-
-    public void setSolde(String solde) {
-        this.solde = solde;
-    }
-
-    public String getDecouvertAutorise() {
-        return decouvertAutorise;
-    }
-
-    public void setDecouvertAutorise(String decouvertAutorise) {
-        this.decouvertAutorise = decouvertAutorise;
-    }
 }
