@@ -19,25 +19,20 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+
+import static com.bazin.test.config.BatchUtils.getProperty;
 
 @Slf4j
 public class CollecteMagReader extends FlatFileItemReader<CsvFile> {
 
-    private static final String ID_CLIENT = "0";
-    private static final String SEPARATEUR = "|";
-    private static final String INPUT = "/collecteMag/input/input.csv";
-
-
     @Override
     public void afterPropertiesSet() throws Exception {
 
-        final DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer(SEPARATEUR);
+        final DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer(getProperty("file.separateur"));
         final DefaultLineMapper<CsvFile> lineMapper = new DefaultLineMapper<>();
 
-        setResource(new FileSystemResource(INPUT));
+        setResource(new FileSystemResource(getProperty("path.input")));
         lineMapper.setFieldSetMapper(csvFileFieldSetMapper());
         lineMapper.setLineTokenizer(lineTokenizer);
         setLineMapper(lineMapper);
@@ -57,7 +52,7 @@ public class CollecteMagReader extends FlatFileItemReader<CsvFile> {
         List<Compte> comptesError = new ArrayList<>();
 
         String firstCarac = String.valueOf(fieldSet.readRawString(0).charAt(0));
-        boolean lineIsClient = ID_CLIENT.equals(firstCarac);
+        boolean lineIsClient = "0".equals(firstCarac);
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
 

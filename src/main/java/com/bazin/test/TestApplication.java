@@ -43,12 +43,5 @@ public class TestApplication implements CommandLineRunner {
         jobLauncher.run(job, new JobParameters());
     }
 
-//    @Bean
-//    public JobLauncher jobTaskLauncher(JobRepository jobRepository) {
-//        TaskExecutorJobLauncher jobTaskLauncher = new TaskExecutorJobLauncher();
-//        jobTaskLauncher.setJobRepository(jobRepository);
-//        jobTaskLauncher.setTaskExecutor(new SimpleAsyncTaskExecutor());
-//        return jobTaskLauncher;
-//    }
 
 }

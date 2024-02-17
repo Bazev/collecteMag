@@ -3,6 +3,7 @@ package com.bazin.test.config;
 import com.bazin.test.chunk.CollecteMagReader;
 import com.bazin.test.chunk.CollecteMagWriter;
 import com.bazin.test.chunk.CollecteMagWriterRejet;
+import com.bazin.test.listener.BilanBatch;
 import com.bazin.test.models.CsvFile;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -36,6 +37,7 @@ public class CollecteMagJobConfiguration {
                 .<CsvFile,CsvFile>chunk(1000, transactionManager)
                 .reader(collecteReader())
                 .writer(compositeItemWriter())
+                .listener(bilanBatch())
                 .build();
     }
 
@@ -64,6 +66,11 @@ public class CollecteMagJobConfiguration {
     @Bean
     CollecteMagWriter collecteWriter() {
         return new CollecteMagWriter();
+    }
+
+    @Bean
+    BilanBatch bilanBatch() {
+        return new BilanBatch();
     }
 
 
